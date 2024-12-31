@@ -1,24 +1,28 @@
+use easybench::bench;
+use rayon::prelude::*;
 use std::fs;
 
-fn part1(input_path: &str) -> String {
-    let content = fs::read_to_string(input_path).expect("Expected input.txt");
-    let lines = content.lines();
+fn part1(input: &str) -> String {
+    let lines = input.par_lines();
 
     let result = "".to_string();
     result
 }
 
-fn part2(input_path: &str) -> String {
-    let content = fs::read_to_string(input_path).expect("Expected input.txt");
-    let lines = content.lines();
+fn part2(input: &str) -> String {
+    let lines = input.par_lines();
 
     let result = "".to_string();
     result
 }
 
 fn main() {
-    println!("Part1: {}", part1("input.txt"));
-    println!("Part2: {}", part2("input.txt"));
+    let input = include_str!("input.txt");
+
+    println!("Part1: {}", part1(input));
+    println!("Part1 bench:{}", bench(|| part1(input)));
+    println!("Part2: {}", part2(input));
+    println!("Part2 bench:{}", bench(|| part2(input)));
 }
 
 #[cfg(test)]
@@ -27,11 +31,13 @@ mod test {
 
     #[test]
     fn part1_test() {
-        assert_eq!("".to_string(), part1("example.txt"));
+        let input = include_str!("example.txt");
+        assert_eq!("".to_string(), part1(input));
     }
 
     #[test]
     fn part2_test() {
-        assert_eq!("".to_string(), part2("example.txt"));
+        let input = include_str!("example.txt");
+        assert_eq!("".to_string(), part2(input));
     }
 }
